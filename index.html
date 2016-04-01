@@ -1,19 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'>
 	<style>
 #show{
-	box-shadow: 5px 5px 5px black; width:10em; height:10em;margin:1em;
+	box-shadow: 5px 5px 5px black; width:20em; height:20em;margin:1em;padding:1em;background-color:#ff4081;color:white;border-radius: 1em;
+}
+header{
+	height:6em;
+	width:100%;
+	font-size:2em;
+	background-color: #3f51b5;
+	color:#c5cae9;
+	font-family: 'Noto Serif', serif;
+}
+body{
+	background-color: #c5cae9;
 }
 	</style>
 </head>
 <body>
+	<header>
+		<div style = "text-align:center">
+		WeatherApp
+		</div>
+		<br>
+		<div style = "text-align:center">
+			City: <input type ="text" id = "city" >
+			State: <input type ="text" id = "state">
+			<button id = "search" class ="btn btn-default" >Search</button>
+			<br>
+		</div>
+	</header>
 <div>
 
-	City: <input type ="text" id = "city" ><br>
-	State: <input type ="text" id = "state"><br>
-	<button id = "search" >Search</button>
-	<br>
+	
 	<script>
 		document.getElementById("search").addEventListener("click",function(){
 			var newDiv = document.createElement("div");
@@ -26,8 +48,17 @@
 			weather.send(null);
 			var weatherinfo = JSON.parse(weather.response);
 			var temp = weatherinfo.query.results.channel.item.condition.temp;
+			var time = weatherinfo.query.results.channel.item.condition.date;
+			var text = weatherinfo.query.results.channel.item.condition.text;
+
 			var temperature = document.createElement("div");
-			temperature.innerHTML = "it is " + temp+" C";
+			var statecity = document.createElement("div");
+			var showtime = document.createElement("div");
+			statecity.innerHTML = city+", "+state;
+			temperature.innerHTML = "\nit is " + temp+" Celsius\n"+text;
+			showtime.innerHTML = time;
+			newDiv.appendChild(showtime);
+			newDiv.appendChild(statecity);
 			newDiv.appendChild(temperature);
 			
 
